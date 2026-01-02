@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Events Board</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Colegio Don Bosco</h1>
+            <p>Stay updated with our latest activities</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="ongoing-section">
+            <h2>🔔 Eventos de Hoy</h2>
+            <div id="ongoing-events" class="events-grid">
+                </div>
+            <p id="no-ongoing" class="empty-message" style="display:none;">No events scheduled for today.</p>
+        </section>
+
+        <hr>
+
+        <section id="future-section">
+            <h2>📅 Eventos Futuros</h2>
+            <div id="future-events" class="events-grid">
+                </div>
+        </section>
+
+    <hr>
+
+    <section id="past-section">
+        <h2>📜 Eventos Pasados</h2>
+        <div id="past-events" class="events-grid">
+            </div>
+    </section>
+    </main>
+
+    <footer>
+        <p>Directiva</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
