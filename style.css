@@ -83,3 +83,11 @@ h2 { color: #2c3e50; border-bottom: 3px solid #3498db; display: inline-block; ma
     .event-card { padding: 15px; }
     h2 { font-size: 1.2rem; }
 }
+
+.event-date {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+    color: #34495e;
+}
