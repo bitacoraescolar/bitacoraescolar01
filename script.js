@@ -110,9 +110,12 @@ function createCardHTML(event) {
     let dateSpanish = event.dateObj.toLocaleDateString('es-ES', options);
     dateSpanish = dateSpanish.charAt(0).toUpperCase() + dateSpanish.slice(1);
 
+    // Capturamos la hora, si no hay nada en el Excel ponemos un texto vacío
+    const eventTime = event.Time ? ` | 🕒 ${event.Time}` : '';
+
     return `
         <div class="event-card">
-            <div class="event-date">${dateSpanish}</div>
+            <div class="event-date">${dateSpanish}${eventTime}</div>
             <h3 class="event-title">${event.Title}</h3>
             <p class="event-desc">${event.Description}</p>
             <div class="event-meta">📍 ${event.Location} | 🏷️ ${event.Type}</div>
