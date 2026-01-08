@@ -12,37 +12,42 @@
     <header>
         <div class="container">
             <h1>Colegio Don Bosco</h1>
-            <p>Stay updated with our latest activities</p>
+            <p>Mantente actualizado sobre las actividades del curso</p>
         </div>
     </header>
 
-    <main class="container">
-        <section id="ongoing-section">
-            <h2>🔔 Eventos de Hoy</h2>
-            <div id="ongoing-events" class="events-grid">
-                </div>
-            <p id="no-ongoing" class="empty-message" style="display:none;">No hay eventos para hoy.</p>
-        </section>
+<main class="container">
+    <section id="today-section">
+        <h2>🔔 Para Hoy</h2>
+        <div id="today-events" class="events-grid"></div>
+        <p id="no-today" class="empty-message" style="display:none;">No hay eventos para hoy.</p>
+    </section>
 
-        <hr>
+    <section id="this-week-section">
+        <h2>🗓️ Esta semana</h2>
+        <div id="this-week-events" class="events-grid"></div>
+    </section>
 
-        <section id="future-section">
-            <h2>📅 Eventos Futuros</h2>
-            <div id="future-events" class="events-grid">
-                </div>
-        </section>
+    <section id="next-week-section">
+        <h2>⏭️ Próxima semana</h2>
+        <div id="next-week-events" class="events-grid"></div>
+    </section>
+
+    <section id="future-section">
+        <h2>📅 Actividades Futuras</h2>
+        <div id="future-events" class="events-grid"></div>
+    </section>
 
     <hr>
 
     <section id="past-section">
-        <h2>📜 Eventos Pasados</h2>
-        <div id="past-events" class="events-grid">
-            </div>
+        <h2>📜 Actividades Anteriores</h2>
+        <div id="past-events" class="events-grid"></div>
     </section>
-    </main>
+</main>
 
     <footer>
-        <p>Directiva</p>
+        <p>Directiva Curso</p>
     </footer>
 
     <script src="script.js"></script>
