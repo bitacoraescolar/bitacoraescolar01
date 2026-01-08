@@ -91,3 +91,21 @@ h2 { color: #2c3e50; border-bottom: 3px solid #3498db; display: inline-block; ma
     font-weight: bold;
     color: #34495e;
 }
+
+/* Estilo para la nueva sección de la semana */
+#week-events .event-card {
+    border-left: 5px solid #e67e22; /* Naranja para llamar la atención */
+    background-color: #fffaf5;
+}
+
+/* Hoy: Verde */
+#today-events .event-card { border-left-color: #27ae60; background-color: #f0fff4; }
+
+/* Esta semana: Naranja */
+#this-week-events .event-card { border-left-color: #e67e22; background-color: #fffaf5; }
+
+/* Próxima semana: Azul claro */
+#next-week-events .event-card { border-left-color: #3498db; }
+
+/* Futuros: Azul oscuro */
+#future-events .event-card { border-left-color: #2c3e50; }
