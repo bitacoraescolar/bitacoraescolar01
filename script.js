@@ -132,3 +132,4 @@ function createCardHTML(event) {
 
 // Run on load
 document.addEventListener('DOMContentLoaded', fetchSchoolEvents);
+
