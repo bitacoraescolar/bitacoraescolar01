@@ -41,67 +41,74 @@ function parseCSV(csvText) {
 }
 
 function displayEvents(events) {
-    const ongoingContainer = document.getElementById('ongoing-events');
-    const futureContainer = document.getElementById('future-events');
-    const pastContainer = document.getElementById('past-events');
-    const noOngoingMsg = document.getElementById('no-ongoing');
-
-    // Limpiar contenedores por si acaso
-    ongoingContainer.innerHTML = '';
-    futureContainer.innerHTML = '';
-    pastContainer.innerHTML = '';
+    // Referencias a los contenedores
+    const containers = {
+        today: document.getElementById('today-events'),
+        thisWeek: document.getElementById('this-week-events'),
+        nextWeek: document.getElementById('next-week-events'),
+        future: document.getElementById('future-events'),
+        past: document.getElementById('past-events')
+    };
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // 1. Convertir las fechas de texto a objetos Date reales para poder comparar
+    // --- CÁLCULO DE RANGOS ---
+    
+    // Fin de esta semana (Próximo domingo)
+    const endOfThisWeek = new Date(today);
+    const daysUntilSunday = 7 - (today.getDay() === 0 ? 7 : today.getDay());
+    endOfThisWeek.setDate(today.getDate() + daysUntilSunday);
+    endOfThisWeek.setHours(23, 59, 59, 999);
+
+    // Inicio y fin de la próxima semana
+    const startOfNextWeek = new Date(endOfThisWeek);
+    startOfNextWeek.setDate(endOfThisWeek.getDate() + 1);
+    startOfNextWeek.setHours(0, 0, 0, 0);
+
+    const endOfNextWeek = new Date(startOfNextWeek);
+    endOfNextWeek.setDate(startOfNextWeek.getDate() + 6);
+    endOfNextWeek.setHours(23, 59, 59, 999);
+
+    // 1. Procesar y ordenar
     const processedEvents = events.map(event => {
         const parts = event.Date.split('-');
-        return {
-            ...event,
-            dateObj: new Date(parts[0], parts[1] - 1, parts[2])
-        };
+        return { ...event, dateObj: new Date(parts[0], parts[1] - 1, parts[2]) };
+    }).sort((a, b) => a.dateObj - b.dateObj);
+
+    let hasToday = false;
+
+    // 2. Clasificar
+    processedEvents.forEach(event => {
+        const eTime = event.dateObj.getTime();
+        const cardHTML = createCardHTML(event);
+
+        if (eTime === today.getTime()) {
+            containers.today.innerHTML += cardHTML;
+            hasToday = true;
+        } 
+        else if (eTime > today.getTime() && eTime <= endOfThisWeek.getTime()) {
+            containers.thisWeek.innerHTML += cardHTML;
+        } 
+        else if (eTime >= startOfNextWeek.getTime() && eTime <= endOfNextWeek.getTime()) {
+            containers.nextWeek.innerHTML += cardHTML;
+        } 
+        else if (eTime > endOfNextWeek.getTime()) {
+            containers.future.innerHTML += cardHTML;
+        }
     });
 
-    // 2. ORDENAR: De más antiguo a más reciente (Cronológico general)
-    processedEvents.sort((a, b) => a.dateObj - b.dateObj);
+    // 3. Pasados (Límite 3)
+    const pastEvents = processedEvents
+        .filter(e => e.dateObj < today)
+        .sort((a, b) => b.dateObj - a.dateObj)
+        .slice(0, 3);
 
-    let hasOngoing = false;
-    
-    // 3. SEPARAR EVENTOS
-    const futureEvents = processedEvents.filter(e => e.dateObj > today);
-    const ongoingEvents = processedEvents.filter(e => e.dateObj.getTime() === today.getTime());
-    const pastEvents = processedEvents.filter(e => e.dateObj < today);
-
-    // 4. RE-ORDENAR PASADOS: El más reciente primero (Descendente)
-    pastEvents.sort((a, b) => b.dateObj - a.dateObj);
-
-    // 5. RENDERIZAR EVENTOS
-    
-
-    // 4. RE-ORDENAR PASADOS: El más reciente primero (Descendente)
-    pastEvents.sort((a, b) => b.dateObj - a.dateObj);
-
-    // 5. APLICAR LÍMITE: Solo tomar los 3 más recientes
-    const limitedPastEvents = pastEvents.slice(0, 3);
-
-// Hoy (Sucediendo ahora)
-    ongoingEvents.forEach(event => {
-        hasOngoing = true;
-        ongoingContainer.innerHTML += createCardHTML(event);
+    pastEvents.forEach(event => {
+        containers.past.innerHTML += createCardHTML(event);
     });
 
-    // Futuros (Próximos)
-    futureEvents.forEach(event => {
-        futureContainer.innerHTML += createCardHTML(event);
-    });
-
-    // Pasados (Limitados a 3)
-    limitedPastEvents.forEach(event => {
-        pastContainer.innerHTML += createCardHTML(event);
-    });    
-
-    if (!hasOngoing) noOngoingMsg.style.display = 'block';
+    document.getElementById('no-today').style.display = hasToday ? 'none' : 'block';
 }
 
 // Función auxiliar para no repetir código de creación de tarjeta
