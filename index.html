@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Primero Basico</title>
+    <title>Primero Basico A - 2026</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -11,12 +11,20 @@
 
     <header>
         <div class="container">
-            <h1>Colegio Don Bosco</h1>
+            <h1>Primero Basico A - 2026</h1>
             <p>Mantente actualizado sobre las actividades del curso</p>
         </div>
     </header>
 
+    <nav class="tab-navigation">
+    <div class="container">
+        <button class="tab-link active" onclick="openTab(event, 'eventos')">📅 Calendario de Eventos</button>
+        <button class="tab-link" onclick="openTab(event, 'informacion')">ℹ️ Información General</button>
+    </div>
+</nav>
+
 <main class="container">
+    <div id="eventos" class="tab-content active">
     <section id="today-section">
         <h2>🔔 Para Hoy</h2>
         <div id="today-events" class="events-grid"></div>
@@ -44,6 +52,28 @@
         <h2>📜 Actividades Anteriores</h2>
         <div id="past-events" class="events-grid"></div>
     </section>
+    </div>
+
+    <div id="informacion" class="tab-content">
+        <section class="info-general">
+            <h2>ℹ️ Información para la Comunidad</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>🕒 Horarios de Clases</h3>
+                    <p>Lunes a Jueves: 08:00 - 15:30</p>
+                    <p>Viernes: 08:00 - 13:30</p>
+                </div>
+                <div class="info-card">
+                    <h3>📞 Emergencias</h3>
+                    <p>En caso de urgencia médica, contactar a enfermería al anexo 405.</p>
+                </div>
+                <div class="info-card">
+                    <h3>📝 Proceso de Admisión</h3>
+                    <p>Las postulaciones para el ciclo 2027 abren en Agosto.</p>
+                </div>
+            </div>
+        </section>
+    </div>
 </main>
 
 <footer class="main-footer">
@@ -54,5 +84,5 @@
 
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>
