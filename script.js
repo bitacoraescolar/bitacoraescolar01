@@ -10,7 +10,7 @@ async function fetchSchoolEvents() {
         //console.log(events);
     } catch (error) {
         console.error('Error fetching data:', error);
-        document.querySelector('main').innerHTML = '<p style="text-align:center; color:red;">Error loading events. Please try again later.</p>';
+        document.querySelector('main').innerHTML = '<p style="text-align:center; color:red;">Error al cargar los eventos. Intente más tarde.</p>';
     }
 }
 
@@ -72,9 +72,11 @@ function displayEvents(events) {
 
     // 1. Procesar y ordenar
     const processedEvents = events.map(event => {
-        const parts = event.Date.split('-');
+        const parts = event.Fecha.split('-');
         return { ...event, dateObj: new Date(parts[0], parts[1] - 1, parts[2]) };
     }).sort((a, b) => a.dateObj - b.dateObj);
+
+    console.log(processedEvents)
 
     let hasToday = false;
 
@@ -118,19 +120,18 @@ function createCardHTML(event) {
     dateSpanish = dateSpanish.charAt(0).toUpperCase() + dateSpanish.slice(1);
 
     // Capturamos la hora, si no hay nada en el Excel ponemos un texto vacío
-    const eventTime = event.Time ? ` | 🕒 ${event.Time}` : '';
+    const eventTime = event.Hora ? ` | 🕒 ${event.Hora}` : '';
 
     return `
         <div class="event-card">
             <div class="event-date">${dateSpanish}${eventTime}</div>
-            <h3 class="event-title">${event.Title}</h3>
-            <p class="event-desc">${event.Description}</p>
-            <div class="event-meta">📍 ${event.Location} | 🏷️ ${event.Type}</div>
+            <h3 class="event-title">${event.Titulo}</h3>
+            <p class="event-desc">${event.Descripcion}</p>
+            <div class="event-meta">📍 ${event.Ubicacion} | 🏷️ ${event.Tipo}</div>
         </div>
     `;
 }
 
 // Run on load
+
 document.addEventListener('DOMContentLoaded', fetchSchoolEvents);
-
-
